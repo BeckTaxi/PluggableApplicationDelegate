@@ -140,17 +140,17 @@ open class PluggableApplicationDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-//    public func application(_ application: UIApplication, willChangeStatusBarFrame newStatusBarFrame: CGRect) {
-//        for service in __services {
-//            service.application?(application, willChangeStatusBarFrame: newStatusBarFrame)
-//        }
-//    }
-//
-//    public func application(_ application: UIApplication, didChangeStatusBarFrame oldStatusBarFrame: CGRect) {
-//        for service in __services {
-//            service.application?(application, didChangeStatusBarFrame: oldStatusBarFrame)
-//        }
-//    }
+    //    public func application(_ application: UIApplication, willChangeStatusBarFrame newStatusBarFrame: CGRect) {
+    //        for service in __services {
+    //            service.application?(application, willChangeStatusBarFrame: newStatusBarFrame)
+    //        }
+    //    }
+    //
+    //    public func application(_ application: UIApplication, didChangeStatusBarFrame oldStatusBarFrame: CGRect) {
+    //        for service in __services {
+    //            service.application?(application, didChangeStatusBarFrame: oldStatusBarFrame)
+    //        }
+    //    }
     
     
     // This callback will be made upon calling -[UIApplication registerUserNotificationSettings:]. The settings the user has granted to the application will be passed in as the second argument.
@@ -237,22 +237,22 @@ open class PluggableApplicationDelegate: UIResponder, UIApplicationDelegate {
     /*! This delegate method offers an opportunity for applications with the "remote-notification" background mode to fetch appropriate new data in response to an incoming remote notification. You should call the fetchCompletionHandler as soon as you're finished performing that operation, so the system can accurately estimate its power and data cost.
      
      This method will be invoked even if the application was launched or resumed because of the remote notification. The respective delegate methods will be invoked first. Note that this behavior is in contrast to application:didReceiveRemoteNotification:, which is not called in those cases, and which will not be invoked if this method is implemented. !*/
-    @available(iOS 7.0, *)
-    public func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void) {
-        for service in __services {
-            service.application?(application, didReceiveRemoteNotification: userInfo, fetchCompletionHandler: completionHandler)
-        }
-    }
-    
+    /*    @available(iOS 7.0, *)
+     public func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void) {
+     for service in __services {
+     service.application?(application, didReceiveRemoteNotification: userInfo, fetchCompletionHandler: completionHandler)
+     }
+     }
+     */ // Commented out by NPK
     
     /// Applications with the "fetch" background mode may be given opportunities to fetch updated content in the background or when it is convenient for the system. This method will be called in these situations. You should call the fetchCompletionHandler as soon as you're finished performing that operation, so the system can accurately estimate its power and data cost.
-    @available(iOS 7.0, *)
-    public func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void) {
-        for service in __services {
-            service.application?(application, performFetchWithCompletionHandler: completionHandler)
-        }
-    }
-    
+    /*    @available(iOS 7.0, *)
+     public func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void) {
+     for service in __services {
+     service.application?(application, performFetchWithCompletionHandler: completionHandler)
+     }
+     }
+     */ // Commented out by NPK
     
     // Called when the user activates your application by selecting a shortcut on the home screen,
     // except when -application:willFinishLaunchingWithOptions: or -application:didFinishLaunchingWithOptions returns NO.
