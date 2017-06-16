@@ -349,27 +349,27 @@ open class PluggableApplicationDelegate: UIResponder, UIApplicationDelegate {
         return nil
     }
     
-    @available(iOS 6.0, *)
-    public func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
-        for service in __services {
-            if service.application?(application, shouldSaveApplicationState: coder) == true {
-                return true
-            }
-        }
-        
-        return false
-    }
-    
-    @available(iOS 6.0, *)
-    public func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
-        for service in __services {
-            if service.application?(application, shouldRestoreApplicationState: coder) == true {
-                return true
-            }
-        }
-        
-        return false
-    }
+//    @available(iOS 6.0, *)
+//    public func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
+//        for service in __services {
+//            if service.application?(application, shouldSaveApplicationState: coder) == true {
+//                return true
+//            }
+//        }
+//        
+//        return false
+//    }
+//    
+//    @available(iOS 6.0, *)
+//    public func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
+//        for service in __services {
+//            if service.application?(application, shouldRestoreApplicationState: coder) == true {
+//                return true
+//            }
+//        }
+//        
+//        return false
+//    }
     
     @available(iOS 6.0, *)
     public func application(_ application: UIApplication, willEncodeRestorableStateWith coder: NSCoder) {
