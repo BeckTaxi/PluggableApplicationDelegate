@@ -164,17 +164,17 @@ open class PluggableApplicationDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-//    open func application(_ application: UIApplication, willChangeStatusBarFrame newStatusBarFrame: CGRect) {
-//        for service in __services {
-//            service.application?(application, willChangeStatusBarFrame: newStatusBarFrame)
-//        }
-//    }
-//
-//    open func application(_ application: UIApplication, didChangeStatusBarFrame oldStatusBarFrame: CGRect) {
-//        for service in __services {
-//            service.application?(application, didChangeStatusBarFrame: oldStatusBarFrame)
-//        }
-//    }
+    //    open func application(_ application: UIApplication, willChangeStatusBarFrame newStatusBarFrame: CGRect) {
+    //        for service in __services {
+    //            service.application?(application, willChangeStatusBarFrame: newStatusBarFrame)
+    //        }
+    //    }
+    //
+    //    open func application(_ application: UIApplication, didChangeStatusBarFrame oldStatusBarFrame: CGRect) {
+    //        for service in __services {
+    //            service.application?(application, didChangeStatusBarFrame: oldStatusBarFrame)
+    //        }
+    //    }
     
     
     // This callback will be made upon calling -[UIApplication registerUserNotificationSettings:]. The settings the user has granted to the application will be passed in as the second argument.
@@ -224,7 +224,7 @@ open class PluggableApplicationDelegate: UIResponder, UIApplicationDelegate {
     @available(iOS, introduced: 8.0, deprecated: 10.0, message: "Use UserNotifications Framework's -[UNUserNotificationCenterDelegate didReceiveNotificationResponse:withCompletionHandler:]")
     open func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, for notification: UILocalNotification, completionHandler: @escaping () -> Swift.Void) {
         apply({ (service, completion) -> Void? in
-            service.application?(application, handleActionWithIdentifier: identifier, for: notification, completionHandler: completion)
+            service.application?(application, handleActionWithIdentifier: identifier, for: notification, completionHandler: { completion(()) })
         }, completionHandler: { _ in
             completionHandler()
         })
@@ -234,7 +234,7 @@ open class PluggableApplicationDelegate: UIResponder, UIApplicationDelegate {
     @available(iOS, introduced: 9.0, deprecated: 10.0, message: "Use UserNotifications Framework's -[UNUserNotificationCenterDelegate didReceiveNotificationResponse:withCompletionHandler:]")
     open func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [AnyHashable : Any], withResponseInfo responseInfo: [AnyHashable : Any], completionHandler: @escaping () -> Swift.Void) {
         apply({ (service, completionHandler) -> Void? in
-            service.application?(application, handleActionWithIdentifier: identifier, forRemoteNotification: userInfo, withResponseInfo: responseInfo, completionHandler: completionHandler)
+            service.application?(application, handleActionWithIdentifier: identifier, forRemoteNotification: userInfo, withResponseInfo: responseInfo, completionHandler: { completionHandler(()) })
         }, completionHandler: { _ in
             completionHandler()
         })
@@ -247,7 +247,7 @@ open class PluggableApplicationDelegate: UIResponder, UIApplicationDelegate {
     @available(iOS, introduced: 8.0, deprecated: 10.0, message: "Use UserNotifications Framework's -[UNUserNotificationCenterDelegate didReceiveNotificationResponse:withCompletionHandler:]")
     open func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [AnyHashable : Any], completionHandler: @escaping () -> Swift.Void) {
         apply({ (service, completionHandler) -> Void? in
-            service.application?(application, handleActionWithIdentifier: identifier, forRemoteNotification: userInfo, completionHandler: completionHandler)
+            service.application?(application, handleActionWithIdentifier: identifier, forRemoteNotification: userInfo, completionHandler: { completionHandler(()) })
         }, completionHandler: { _ in
             completionHandler()
         })
@@ -257,7 +257,7 @@ open class PluggableApplicationDelegate: UIResponder, UIApplicationDelegate {
     @available(iOS, introduced: 9.0, deprecated: 10.0, message: "Use UserNotifications Framework's -[UNUserNotificationCenterDelegate didReceiveNotificationResponse:withCompletionHandler:]")
     open func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, for notification: UILocalNotification, withResponseInfo responseInfo: [AnyHashable : Any], completionHandler: @escaping () -> Swift.Void) {
         apply({ (service, completionHandler) -> Void? in
-            service.application?(application, handleActionWithIdentifier: identifier, for: notification, withResponseInfo: responseInfo, completionHandler: completionHandler)
+            service.application?(application, handleActionWithIdentifier: identifier, for: notification, withResponseInfo: responseInfo, completionHandler: { completionHandler(()) })
         }, completionHandler: { _ in
             completionHandler()
         })
@@ -267,27 +267,27 @@ open class PluggableApplicationDelegate: UIResponder, UIApplicationDelegate {
     /*! This delegate method offers an opportunity for applications with the "remote-notification" background mode to fetch appropriate new data in response to an incoming remote notification. You should call the fetchCompletionHandler as soon as you're finished performing that operation, so the system can accurately estimate its power and data cost.
      
      This method will be invoked even if the application was launched or resumed because of the remote notification. The respective delegate methods will be invoked first. Note that this behavior is in contrast to application:didReceiveRemoteNotification:, which is not called in those cases, and which will not be invoked if this method is implemented. !*/
-//    @available(iOS 7.0, *)
-//    open func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void) {
-//        apply({ (service, completionHandler) -> Void? in
-//            service.application?(application, didReceiveRemoteNotification: userInfo, fetchCompletionHandler: completionHandler)
-//        }, completionHandler: { results in
-//            let result = results.min(by: { $0.rawValue < $1.rawValue }) ?? .noData
-//            completionHandler(result)
-//        })
-//    }
+    //    @available(iOS 7.0, *)
+    //    open func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void) {
+    //        apply({ (service, completionHandler) -> Void? in
+    //            service.application?(application, didReceiveRemoteNotification: userInfo, fetchCompletionHandler: completionHandler)
+    //        }, completionHandler: { results in
+    //            let result = results.min(by: { $0.rawValue < $1.rawValue }) ?? .noData
+    //            completionHandler(result)
+    //        })
+    //    }
     
     
     /// Applications with the "fetch" background mode may be given opportunities to fetch updated content in the background or when it is convenient for the system. This method will be called in these situations. You should call the fetchCompletionHandler as soon as you're finished performing that operation, so the system can accurately estimate its power and data cost.
-//    @available(iOS 7.0, *)
-//    open func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void) {
-//        apply({ (service, completionHandler) -> Void? in
-//            service.application?(application, performFetchWithCompletionHandler: completionHandler)
-//        }, completionHandler: { results in
-//            let result = results.min(by: { $0.rawValue < $1.rawValue }) ?? .noData
-//            completionHandler(result)
-//        })
-//    }
+    //    @available(iOS 7.0, *)
+    //    open func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Swift.Void) {
+    //        apply({ (service, completionHandler) -> Void? in
+    //            service.application?(application, performFetchWithCompletionHandler: completionHandler)
+    //        }, completionHandler: { results in
+    //            let result = results.min(by: { $0.rawValue < $1.rawValue }) ?? .noData
+    //            completionHandler(result)
+    //        })
+    //    }
     
     
     // Called when the user activates your application by selecting a shortcut on the home screen,
@@ -312,7 +312,7 @@ open class PluggableApplicationDelegate: UIResponder, UIApplicationDelegate {
     @available(iOS 7.0, *)
     open func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Swift.Void) {
         apply({ (service, completionHandler) -> Void? in
-            service.application?(application, handleEventsForBackgroundURLSession: identifier, completionHandler: completionHandler)
+            service.application?(application, handleEventsForBackgroundURLSession: identifier, completionHandler: { completionHandler(()) })
         }, completionHandler: { _ in
             completionHandler()
         })
